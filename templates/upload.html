@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+        <h4 class="mb-3">Upload New Retail CSV Data</h4>
+        <p class="text-muted">Upload updated CSV files matching the <code>households</code>, <code>transactions</code>, or <code>products</code> table schema.</p>
+        <form method="POST" enctype="multipart/form-data">
+          <div class="mb-3">
+            <label class="form-label fw-bold">Target Database Table</label>
+            <select name="table_type" class="form-select" required>
+              <option value="transactions">Transactions (400_transactions.csv)</option>
+              <option value="households">Households (400_households.csv)</option>
+              <option value="products">Products (400_products.csv)</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-bold">Select CSV File</label>
+            <input type="file" name="csv_file" accept=".csv" class="form-control" required>
+          </div>
+          <button type="submit" class="btn btn-success w-100">Upload & Load into Azure SQL</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

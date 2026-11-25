@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card shadow-sm mb-4">
+  <div class="card-body">
+    <h4 class="mb-3">Household Transaction Lookup</h4>
+    <form method="POST" class="row g-3 align-items-center">
+      <div class="col-auto">
+        <label for="hshd_num" class="col-form-label fw-bold">Enter HSHD_NUM:</label>
+      </div>
+      <div class="col-auto">
+        <input type="number" id="hshd_num" name="hshd_num" class="form-control" value="{{ hshd_num }}" required>
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-primary">Search</button>
+      </div>
+      <div class="col-auto text-muted">
+        Showing <strong>{{ records|length }}</strong> joined rows for <strong>HSHD_NUM = {{ hshd_num }}</strong> (Sorted by HSHD_NUM → BASKET_NUM → DATE → PRODUCT_NUM → DEPARTMENT → COMMODITY)
+      </div>
+    </form>
+  </div>
+</div>
+
+{% if records %}
+<div class="table-responsive bg-white shadow-sm rounded p-2">
+  <table class="table table-striped table-hover table-sm align-middle">
+    <thead class="table-dark">
+      <tr>
+        <th>HSHD_NUM</th>
+        <th>BASKET_NUM</th>
+        <th>DATE</th>
+        <th>PRODUCT_NUM</th>
+        <th>DEPARTMENT</th>
+        <th>COMMODITY</th>
+        <th>SPEND</th>
+        <th>UNITS</th>
+        <th>STORE_R</th>
+        <th>WEEK</th>
+        <th>YEAR</th>
+        <th>L</th>
+        <th>AGE_RANGE</th>
+        <th>MARITAL</th>
+        <th>INCOME_RANGE</th>
+        <th>HOMEOWNER</th>
+        <th>COMPOSITION</th>
+        <th>HH_SIZE</th>
+        <th>CHILDREN</th>
+        <th>BRAND_TY</th>
+        <th>ORGANIC</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in records %}
+      <tr>
+        <td>{{ r.HSHD_NUM }}</td>
+        <td>{{ r.BASKET_NUM }}</td>
+        <td>{{ r.DATE }}</td>
+        <td>{{ r.PRODUCT_NUM }}</td>
+        <td>{{ r.DEPARTMENT }}</td>
+        <td>{{ r.COMMODITY }}</td>
+        <td>${{ "%.2f"|format(r.SPEND) }}</td>
+        <td>{{ r.UNITS }}</td>
+        <td>{{ r.STORE_R }}</td>
+        <td>{{ r.WEEK_NUM }}</td>
+        <td>{{ r.YEAR }}</td>
+        <td>{{ r.L }}</td>
+        <td>{{ r.AGE_RANGE }}</td>
+        <td>{{ r.MARITAL }}</td>
+        <td>{{ r.INCOME_RANGE }}</td>
+        <td>{{ r.HOMEOWNER }}</td>
+        <td>{{ r.HSHD_COMPOSITION }}</td>
+        <td>{{ r.HH_SIZE }}</td>
+        <td>{{ r.CHILDREN }}</td>
+        <td>{{ r.BRAND_TY }}</td>
+        <td>{{ r.NATURAL_ORGANIC_FLAG }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="alert alert-info">No transaction records found for HSHD_NUM = {{ hshd_num }} in the Aug–Dec last-7-days dataset.</div>
+{% endif %}
+{% endblock %}

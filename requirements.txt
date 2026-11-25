@@ -1,0 +1,6 @@
+flask
+pyodbc
+sqlalchemy
+pandas
+werkzeug
+gunicorn
